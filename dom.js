@@ -43,68 +43,134 @@
 
 //parentNode
 
-var itemList=document.querySelector('#items');
-itemList.parentNode.style.backgroundColor='green';
-console.log(itemList.parentNode);
-console.log(itemList.parentNode.parentNode);
+// var itemList=document.querySelector('#items');
+// itemList.parentNode.style.backgroundColor='green';
+// console.log(itemList.parentNode);
+// console.log(itemList.parentNode.parentNode);
 
-//parentElement
+// //parentElement
 
-var itemList=document.querySelector('#items');
-itemList.parentElement.style.backgroundColor='green';
-console.log(itemList.parentElement);
+// var itemList=document.querySelector('#items');
+// itemList.parentElement.style.backgroundColor='green';
+// console.log(itemList.parentElement);
 
-//childNodes
+// //childNodes
 
-console.log(itemList.childNodes);
+// console.log(itemList.childNodes);
 
-console.log(itemList.children)
-console.log(itemList.children[1]);
-itemList.children[1].style.backgroundColor='green'
+// console.log(itemList.children)
+// console.log(itemList.children[1]);
+// itemList.children[1].style.backgroundColor='green'
 
-// // firstChild
-console.log(itemList.firstChild);
+// // // firstChild
+// console.log(itemList.firstChild);
 
-// //firstElementChild
-console.log(itemList.firstElementChild);
-itemList.firstElementChild.textContent='Hello';
+// // //firstElementChild
+// console.log(itemList.firstElementChild);
+// itemList.firstElementChild.textContent='Hello';
 
-//lastChild
-console.log(itemList.lastChild);
+// //lastChild
+// console.log(itemList.lastChild);
 
-// //lastChildElement
-console.log(itemList.lastElementChild);
-itemList.lastElementChild.textContent="Bye"
+// // //lastChildElement
+// console.log(itemList.lastElementChild);
+// itemList.lastElementChild.textContent="Bye"
 
-//nextSibling
-console.log(itemList.nextSibling);
-//nextElementSibling
-console.log(itemList.nextElementSibling);
+// //nextSibling
+// console.log(itemList.nextSibling);
+// //nextElementSibling
+// console.log(itemList.nextElementSibling);
 
-//previoussibling
-console.log(itemList.previousSibling);
-//previousElementSibling
-console.log(itemList.previousElementSibling);
-itemList.previousElementSibling.style.color='green'
+// //previoussibling
+// console.log(itemList.previousSibling);
+// //previousElementSibling
+// console.log(itemList.previousElementSibling);
+// itemList.previousElementSibling.style.color='green'
 
-//create Element
-var newDev=document.createElement('div');
-//Add class
-newDev.className='newDev';
-//Add id
-newDev.id="newdevID"
-//Add Attribute 
-newDev.setAttribute('title' , 'titleDev')
-// console.log(newDev);
+// //create Element
+// var newDev=document.createElement('div');
+// //Add class
+// newDev.className='newDev';
+// //Add id
+// newDev.id="newdevID"
+// //Add Attribute 
+// newDev.setAttribute('title' , 'titleDev')
+// // console.log(newDev);
 
-//Create Text to Node
-var newDevText=document.createTextNode("Hello World");
-//Add text to div
-newDev.appendChild(newDevText);
+// //Create Text to Node
+// var newDevText=document.createTextNode("Hello World");
+// //Add text to div
+// newDev.appendChild(newDevText);
 
-var container=document.querySelector('header .container');
-var h1=document.querySelector('header h1');
-container.insertBefore(newDev,h1)
+// var container=document.querySelector('header .container');
+// var h1=document.querySelector('header h1');
+// container.insertBefore(newDev,h1)
 
 
+
+//Edit and Delete a list 
+
+var form = document.getElementById('form');
+var itemList=document.getElementById('items');
+var filter=document.getElementById('filter');
+
+//form submit event
+form.addEventListener('submit' ,addItem);
+
+//Remove Item event
+itemList.addEventListener('click',removeItem);
+
+//Filter event
+filter.addEventListener('filter',filterItem);
+
+//add item
+function addItem(e){
+    e.preventDefault();
+    console.log(1)
+    var inputVal=document.getElementById('input').value;
+    var li=document.createElement('li');
+    li.className='list-group-item';
+    console.log(li)
+    li.appendChild(document.createTextNode(inputVal));
+    itemList.appendChild(li);
+    //delete Button
+    var deleteBtn = document.createElement('button');
+    //Adding class to Delete button
+    deleteBtn.className= 'btn btn-danger btn-sm float-right delete';
+    //Append text to node
+    deleteBtn.appendChild(document.createTextNode('Delete'));
+
+    //Append button to li
+     li.appendChild(deleteBtn);
+
+     //append li to List
+    itemList.appendChild(li);
+}
+
+//Remove item 
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm('Are you Sure ?')){
+            var li=e.target.parentElement;
+            itemList.removeChild(li);
+        }
+    }
+}
+
+//Filter item
+function filterItem(e){
+    //convert text to lowercase
+    var text=e.target.value.toLowerCase();
+    //Get lis
+    var items = itemList.getElementsByTagName('li');
+    //convert to an array
+    Array.from(items).forEach(function(item){
+        var itemName=item.firstChild.textContent;
+        if(itemName.toLowerCase().indexOf(text) != -1){
+            item.style.display='block';
+        } else{
+            item.style.display='none';
+        }
+    })
+}
 
