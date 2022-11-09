@@ -1,36 +1,80 @@
 <html>
-    <body>
-        <form onsubmit="saveLocalStorage(event)">
-            <label for="name">Name :</label><br>
-            <input type="text" name="username" required><br>
-            <label for="email">Email</label><br>
-            <input type="email" name="emailId" required><br>
-            <label for="phone">Phone</label><br>    
-            <input type="number" name="phonenumber"> <br><br>
-            <button>Submit</button>
-        </form>
-        <ul id="user"></ul>
-        <script>
-            function saveLocalStorage(event){
-                event.preventDefault();
-                var name = event.target.username.value; 
-                var email = event.target.emailId.value;
-                var phone = event.target.phonenumber.value;
-                // localStorage.setItem('name',name);
-                // localStorage.setItem('email',email)
-                myObject={
-                name,
-                email,
-                phone
+
+<body>
+    <form onsubmit="saveLocalStorage(event)">
+        <label for="name">Name :</label><br>
+        <input type="text" name="username" id='username' required><br>
+        <label for="email">Email</label><br>
+        <input type="email" name="emailId" id="emailId" required><br>
+        <label for="phone">Phone</label><br>
+        <input type="number" name="phonenumber" id="number"> <br><br>
+        <button>Submit</button>
+    </form>
+    <ul id="user">
+
+    </ul>
+    <script>
+        function saveLocalStorage(event) {
+            event.preventDefault();
+            var name = document.getElementById('username').value
+            var email = document.getElementById('emailId').value
+            var phone = document.getElementById('number').value
+            // localStorage.setItem('name',name);
+            // localStorage.setItem('email',email);
+            if (name.length > 0 && email.length > 0) {
+                var Obj = {
+                    name,
+                    email,
+                    phone
+                }
+                localStorage.setItem("userDetail" + email, JSON.stringify(Obj));
+                usersReadData(Obj)
             }
-            localStorage.setItem('myObject.email', JSON.stringify(myObject));
-                usersReadData(myObject);
-            }
-           function usersReadData(user){
-                var parentData=document.getElementById='users';
-                var childData=`<li>${user.name} - ${user.email}</li>`;
-                parentData.innerHTML= parentData.innerHTML + childData ;
-           }
-        </script>
-    </body>
+        }
+        function usersReadData(Obj) {
+            var ul = document.getElementById('user');
+            //creat li elment
+            var li = document.createElement('li');
+            li.appendChild(document.createTextNode(Obj.name + " " + Obj.email))
+            //disply the data into Dom
+            user.appendChild(li)
+
+
+            // Edit button
+            var edit = document.createElement('input');
+            edit.id = 'ei'
+            edit.type = 'button';
+            edit.value = 'Edit';
+            edit.addEventListener('click', ()=>{
+                console.log(Obj)
+                document.getElementById('username').value=Obj.name;
+                document.getElementById('emailId').value=Obj.email;
+                li.remove();
+            });
+            console.log(edit.className='delete');
+            console.log(edit);
+            li.appendChild(edit);
+
+
+            // Delete button
+
+            var delete=document.createElement('input');
+            delete.id='di';
+            delete.type='button';
+            delete.value='delete';
+            delete.addEventListener('click',()=>{
+                localStorage.removeItem("userDetails" + Obj.email);
+                li.remove();
+            });
+            console.log(delete.className="delete");
+            console.log(delete);
+            li.appendChild(delete);
+            console.log(li);
+
+            console.log(ul.appendChild(li));
+        }
+
+    </script>
+</body>
+
 </html>
