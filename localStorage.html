@@ -14,6 +14,14 @@
                 localStorage.setItem('name',name);
                 localStorage.setItem('email',email)
             }
+
+            myObject={
+                name:'sam',
+                age : 30
+            }
+            var myObjectJson=JSON.stringify(myObject);
+            localStorage.setItem('myObject' , myObjectJson);
+            console.log(localStorage);
         </script>
     </body>
 </html>
