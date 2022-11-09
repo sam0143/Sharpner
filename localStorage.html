@@ -4,24 +4,33 @@
             <label for="name">Name :</label><br>
             <input type="text" name="username" required><br>
             <label for="email">Email</label><br>
-            <input type="email" name="emailId" required><br><br>
+            <input type="email" name="emailId" required><br>
+            <label for="phone">Phone</label><br>    
+            <input type="number" name="phonenumber"> <br><br>
             <button>Submit</button>
         </form>
+        <ul id="user"></ul>
         <script>
             function saveLocalStorage(event){
-                var name = event.target.username.value;
+                event.preventDefault();
+                var name = event.target.username.value; 
                 var email = event.target.emailId.value;
-                localStorage.setItem('name',name);
-                localStorage.setItem('email',email)
+                var phone = event.target.phonenumber.value;
+                // localStorage.setItem('name',name);
+                // localStorage.setItem('email',email)
+                myObject={
+                name,
+                email,
+                phone
             }
-
-            myObject={
-                name:'sam',
-                age : 30
+            localStorage.setItem('myObject.email', JSON.stringify(myObject));
+                usersReadData(myObject);
             }
-            var myObjectJson=JSON.stringify(myObject);
-            localStorage.setItem('myObject' , myObjectJson);
-            console.log(localStorage);
+           function usersReadData(user){
+                var parentData=document.getElementById='users';
+                var childData=`<li>${user.name} - ${user.email}</li>`;
+                parentData.innerHTML= parentData.innerHTML + childData ;
+           }
         </script>
     </body>
 </html>
