@@ -66,23 +66,28 @@ let user1 = new Member('vemky','venky@gmail.com','123','Yearly package');
 // ul.children[1].style.background = 'yellow'
 
 
-const btn = document.querySelector('.btn');
-btn.addEventListener('click', (event)=>{
-    event.preventDefault();
-    console.log('click');
-});
+// const btn = document.querySelector('.btn');
+// btn.addEventListener('click', (event)=>{
+//     event.preventDefault();
+//     if(name.value == ' ' || email.value== ' '){
 
-const btn1 = document.querySelector('.btn');
-btn1.addEventListener('mouseover' , (e)=>{
-    e.preventDefault();
-    document.querySelector('#my-form').style.background="#ccc"
-})
+//     }
+//     // console.log(event.value);
+// });
 
-const btn2 =document.querySelector('.btn');
-btn2.addEventListener('mouseout',(e)=>{
-    e.preventDefault();
-    document.querySelector('#my-form').style.background='yellow'
-})
+
+
+// const btn1 = document.querySelector('.btn');
+// btn1.addEventListener('mouseover' , (e)=>{
+//     e.preventDefault();
+//     document.querySelector('#my-form').style.background="#ccc"
+// })
+
+// const btn2 =document.querySelector('.btn');
+// btn2.addEventListener('mouseout',(e)=>{
+//     e.preventDefault();
+//     document.querySelector('#my-form').style.background='yellow'
+// })
 
 const myform=document.querySelector('#my-form');
 const msg=document.querySelector('.msg')
@@ -103,5 +108,8 @@ function onSubmit(e)
         user.appendChild(li);
         name.value='';
         email.value='';
+        console.log(name.value)
+        console.log(email.value)
     }
 }
+
