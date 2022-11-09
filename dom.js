@@ -25,9 +25,9 @@
 // QuerySelector
 
 // var secondItem = document.querySelector('.list-group-item:nth-child(2)');
-// secondItem.style.backgroundColor="green";
+// secondItem[1].style.backgroundColor="green";
 // var thirdItem = document.querySelector('.list-group-item: nth-child(3)');
-// thirdItem.style.visibility='hidden';
+// thirdItem[2].style.visibility='hidden';
 
 
 // // QuerySelectorAll 
@@ -108,6 +108,7 @@
 
 
 
+
 //Edit and Delete a list 
 
 var form = document.getElementById('form');
@@ -121,17 +122,21 @@ form.addEventListener('submit' ,addItem);
 itemList.addEventListener('click',removeItem);
 
 //Filter event
-filter.addEventListener('filter',filterItem);
+filter.addEventListener('keyup',filterItem);
+
+
 
 //add item
 function addItem(e){
     e.preventDefault();
-    console.log(1)
     var inputVal=document.getElementById('input').value;
+    var disVal=document.getElementById('discription').value;
+
     var li=document.createElement('li');
     li.className='list-group-item';
-    console.log(li)
+  
     li.appendChild(document.createTextNode(inputVal));
+    li.appendChild(document.createTextNode(disVal));
     itemList.appendChild(li);
     //delete Button
     var deleteBtn = document.createElement('button');
@@ -139,10 +144,12 @@ function addItem(e){
     deleteBtn.className= 'btn btn-danger btn-sm float-right delete';
     //Append text to node
     deleteBtn.appendChild(document.createTextNode('Delete'));
-
     //Append button to li
      li.appendChild(deleteBtn);
-
+     var editBtn=document.createElement('button');
+    editBtn.className='btn btn-primary btn-sm float-right edit';
+    editBtn.appendChild(document.createTextNode('Edit'))
+    li.appendChild(editBtn);
      //append li to List
     itemList.appendChild(li);
 }
@@ -165,9 +172,11 @@ function filterItem(e){
     var items = itemList.getElementsByTagName('li');
     //convert to an array
     Array.from(items).forEach(function(item){
+
         var itemName=item.firstChild.textContent;
-        if(itemName.toLowerCase().indexOf(text) != -1){
-            item.style.display='block';
+        var deseription=item.childNodes[1].textContent;
+        if(itemName.toLowerCase().indexOf(text) != -1 || deseription.toLowerCase().indexOf(text) != -1){
+            item.style.display='block'; 
         } else{
             item.style.display='none';
         }
