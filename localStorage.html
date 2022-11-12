@@ -58,17 +58,17 @@
 
             // Delete button
 
-            var delete=document.createElement('input');
-            delete.id='di';
-            delete.type='button';
-            delete.value='delete';
-            delete.addEventListener('click',()=>{
+            const d=document.createElement('input');
+            d.id='di';
+            d.type='button';
+            d.value='delete';
+            d.addEventListener('click',()=>{
                 localStorage.removeItem("userDetails" + Obj.email);
                 li.remove();
             });
-            console.log(delete.className="delete");
-            console.log(delete);
-            li.appendChild(delete);
+            console.log(d.className="delete");
+            console.log(d);
+            li.appendChild(d);
             console.log(li);
 
             console.log(ul.appendChild(li));
