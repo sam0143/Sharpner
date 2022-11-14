@@ -86,95 +86,243 @@
 
 
 
-// callback 
-var  posts=[
-    {title:'First Post' , body:'First body',createdAt: new Date().getTime()},
-    {title:'Second Post', body:'Second Body', createdAt : new Date().getTime()}
-]
+// // callback 
+// var  posts=[
+//     {title:'First Post' , body:'First body',createdAt: new Date().getTime()},
+//     {title:'Second Post', body:'Second Body', createdAt : new Date().getTime()}
+// ]
 
-function getPost(){
-   setTimeout(()=>{
-        let output='';
-        posts.forEach((post,index)=>{
-            output += `<li> ${post.title} - last updated ${(new Date().getTime() - post.createdAt)/1000}  </li>`
-        });
-        // console.log('timer running Id = ', intervalId);
-        document.body.innerHTML=output;
-        console.log(output); 
-    },2000)
-}
+// function getPost(){
+//    setTimeout(()=>{
+//         let output='';
+//         posts.forEach((post,index)=>{
+//             output += `<li> ${post.title} - last updated ${(new Date().getTime() - post.createdAt)/1000}  </li>`
+//         });
+//         // console.log('timer running Id = ', intervalId);
+//         document.body.innerHTML=output;
+//         console.log(output); 
+//     },2000)
+// }
 
-function createPost(post){
-    setTimeout(()=>{
-        posts.push({...post,createdAt: new Date().getTime()});
-        // callback();
-    },3000)
-}
-// Deletr a post
-function deletePost(){
-    return new Promise((resolve,reject)=>{
-        setTimeout(()=>{
-            if(posts.length>0){
-                const lastPost=posts.pop()
-                resolve(lastPost);
-            }
-            else{
-                console.log('Array is an empty');
-            }
-        },1000)
-    })
-}
-// Promices
-function create4thPost(post){
-    return new Promise((resolve,reject)=>{
-        setTimeout(()=>{
-        posts.push({...post, createdAt: new Date().getTime()});
+// function createPost(post){
+//     setTimeout(()=>{
+//         posts.push({...post,createdAt: new Date().getTime()});
+//         // callback();
+//     },3000)
+// }
+// // Deletr a post
+// function deletePost(){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(()=>{
+//             if(posts.length>0){
+//                 const lastPost=posts.pop()
+//                 resolve(lastPost);
+//             }
+//             else{
+//                 console.log('Array is an empty');
+//             }
+//         },1000)
+//     })
+// }
+// // Promices
+// function create4thPost(post){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(()=>{
+//         posts.push({...post, createdAt: new Date().getTime()});
         
-        const error=false;
-        if(!error){
-            console.log('Resolve');
-        }else{
-            console.log("Error : Something went wrong");
-        }
-    },4000);
+//         const error=false;
+//         if(!error){
+//             console.log('Resolve');
+//         }else{
+//             console.log("Error : Something went wrong");
+//         }
+//     },4000);
 
+//     })
+
+// }
+// getPost();
+// createPost({title:'Third Post', body:'Third Body'})
+// .then(()=>{
+//     getPost()
+//     deletePost().then((deletElement)=>{
+//         console.log(deletElement);
+//         getPost();
+//         deletePost().then(()=>{
+//             getPost();
+//             deletePost(()=>{
+//                 getPost();
+//                 deletePost().then(()=>{})
+//                 .catch((error)=>{
+//                     console.log('Inside catch block', error)
+//                 })
+//             })
+//         })
+//     })
+// })
+// .catch(err => console.log(err));
+// // create4thPost({title:'Fourth Post', body:'Fourth Body'}).then(getPost).catch((err)=>console.log('error'));
+
+
+// //Promise all
+// const promise1 = Promise.resolve('Hello world');
+// const promise2 = 10;
+// const promise3 = new Promise((resolve,reject)=>{
+//     setTimeout(resolve,2000,'Goodbye');
+// })
+// const promise4 = fetch('https://jsonplaceholder.typicode.com/users').then(res=>res.json());
+// Promise.all([promise1,promise2,promise3,promise4]).then((value)=>console.log(value));
+
+
+
+
+//Async Wait -- using promices
+
+console.log('person 1 : Show Tickets');
+console.log('person 2: Show Tickets');
+
+const promise = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        resolve('ticket');
+    },2000)
+})
+const getPopcorn = promise.then((t)=>{
+    console.log('Wifi : I have a ticket');
+    console.log('Husband : We shoud go in');
+    console.log('Wifi : I am so hungry');
+    return new Promise((resolve,reject)=>{
+        console.log(`${t} popcorn`);
+    } )
+})
+
+const getButter = getPopcorn.then((t)=>{
+    console.log('Husband : I got Popcorn');
+    console.log('Husband : We should go in');
+    console.log('Wife : I want some butter');
+    return new Promise((resolve,reject)=>{
+        console.log(`${t} butter`);
     })
+})
+promise.then((t)=>{
+    console.log(`person 3 : show ${t}`);
+})
 
+console.log('person 4 : Show Ticket');
+console.log('person 5 : Show TIcket');
+
+
+
+//Using Async and wait
+
+console.log('Person 1 : Show Ticket');
+console.log('person 2 : Show Ticket');
+
+const preMovie = async() =>{
+    const promise = new Promise((resolve,reject)=>{
+        setTimeout(()=>resolve('ticket'),2000);
+    }) 
+
+    const getPopcorn = new Promise((resolve,reject)=> resolve(`popcorn`));
+    const addButter = new Promise((resolve,reject)=>resolve(`butter`));
+    const getCooldrinks = new Promise((resolve,reject)=>resolve(`cooldrink`));
+
+    let ticket = await promise ;
+     console.log(`Wifi : I have a ticket ${ticket}`);
+     console.log('Husband : We shoud go in');
+     console.log('Wifi : I am so hungry');
+
+    const popcorn = await getPopcorn;
+    console.log(`Husband : I got ${popcorn}`);
+    console.log('Husband : We should go in');
+     console.log('Wife : I want some butter');
+
+    const butter = await addButter;
+    console.log(`Husband : i got some ${butter} and popcorn`);
+     console.log('Husband : Anything else darling');
+    console.log('Wife : I want cooldrink');
+
+    const cooldrink = await getCooldrinks;
+     console.log(`Husband : i have got ${cooldrink}`)
+     console.log('Husbond : lets go in darling');
+     console.log('Wife : lets Go');
+
+    return ticket;
 }
-getPost();
-createPost({title:'Third Post', body:'Third Body'})
-.then(()=>{
-    getPost()
-    deletePost().then((deletElement)=>{
-        console.log(deletElement);
-        getPost();
-        deletePost().then(()=>{
-            getPost();
-            deletePost(()=>{
-                getPost();
-                deletePost().then(()=>{})
-                .catch((error)=>{
-                    console.log('Inside catch block', error)
-                })
-            })
-        })
+ preMovie().then((m)=>console.log(`Person 3 : Show${m}`));
+ console.log('Person 4 : Show Ticket');
+ console.log('Person 5 : Show TIcket');
+
+
+// async await another example
+
+const testUserForm = async()=>{
+    const loadUserForm = new Promise((resolve,reject)=>{
+        setTimeout(()=>resolve('page loaded'),1000);
+    });
+    const enterUserName = new Promise((resolve,reject)=>{
+        setTimeout(()=>resolve('user enterd'),1000);
     })
-})
-.catch(err => console.log(err));
-// create4thPost({title:'Fourth Post', body:'Fourth Body'}).then(getPost).catch((err)=>console.log('error'));
+    const verifyUserDetails = ()=>{
+
+    }
+    await loadUserForm ;
+    await enterUserName;
+    const testResult = verifyUserDetails();
+    return testResult;
+}
+
+testUserForm().then((m)=>console.log(`Show : ${m}`));
 
 
-//Promise all
-const promise1 = Promise.resolve('Hello world');
-const promise2 = 10;
-const promise3 = new Promise((resolve,reject)=>{
-    setTimeout(resolve,2000,'Goodbye');
-})
-const promise4 = fetch('https://jsonplaceholder.typicode.com/users').then(res=>res.json());
-Promise.all([promise1,promise2,promise3,promise4]).then((value)=>console.log(value));
+// callback , promises and Async wait  -- video ( https://www.youtube.com/watch?v=d26Za3_BTr0 )
 
+// sync and wait example
 
-        </script>
-    </body>
+function buyCar(){
+    return new Promise ((resolve,reject)=>{
+    setTimeout(()=>{
+        resolve("buy a car");
+    },1000)
+});
+}
+
+function plantrip(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve("Plan a trip");
+        },2000)
+    })
+}
+
+function gotomanali(){
+    return new Promise ((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve("we go to manali");
+        },3000)
+    })
+}
+
+function reachmoutain(){
+    return new Promise ((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve('going  to moutain');
+        },4000)
+    })
+}
+
+async function fun(){
+    const msg1 = await buyCar();
+    console.log(msg1);
+    const msg2 = await plantrip();
+    console.log(msg2);
+    const msg3 = await gotomanali();
+    console.log(msg3);
+    const msg4 = await reachmoutain();
+    console.log(msg4);
+}
+fun();
+
+   </script>
+ </body>
 </html>
 
