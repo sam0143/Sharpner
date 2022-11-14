@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <script>
+
+
+// // Implement Queue
+// class Queue{
+//     constructor(){
+//         this.item = [];
+//     }
+//    enqueue(element){
+//     this.item.push(element);
+//    }
+//    dequeue(){
+//     if(this.isEmpty()) return  "UnderFlow";
+//        return this.item.shift();
+//    }
+//    peek(){
+//     return this.item[this.item.length-1];
+//    }
+//    front(){
+//     if(this.isEmpty()) return "Queue has no elements";
+//         return this.item[0];
+//    }
+//    isEmpty(){
+//     return this.item.length == 0;
+//    }
+//    printQueue(){
+//         var str = ''
+//         for(let i=0 ; i<this.item.length; i++){
+//             str+=this.item[i] + ' '
+//             return str;
+//         }
+//    }
+// }
+
+// var queue = new Queue();
+// queue.enqueue(10);
+// queue.enqueue(20);
+// queue.enqueue(30);
+// queue.enqueue(40);
+
+// console.log(queue.item);
+// queue.dequeue();
+// console.log(queue.item);
+// console.log(queue.front());
+// console.log(queue.peek());
+// console.log(queue.isEmpty());
+// console.log(queue.printQueue());
+
+
+
+
+// Implement Stack using Queue
+
+// class myStack{
+//     constructor(){
+//         this.item=[];
+//     }
+//     push(element){
+//         return this.item.push(element);
+//     }
+//     pop(){
+//         return this.item.pop();
+//     }
+//     top(){
+//         return this.item[this.item.length-1];
+//     }
+//     empty(){
+//         if (this.item.length == 0 ) return " Stack is empty";
+//         return "Stack is not empty";
+//     }
+// } 
+
+// var mystack = new myStack()
+// mystack.push(10);
+// mystack.push(20);
+// mystack.push(30);
+// mystack.push(40);
+// console.log(mystack.item);
+// console.log(mystack.pop());
+// console.log(mystack.top());
+// console.log(mystack.empty());
+
+
+
+// callback 
+var  posts=[
+    {title:'First Post' , body:'First body',createdAt: new Date().getTime()},
+    {title:'Second Post', body:'Second Body', createdAt : new Date().getTime()}
+]
+
+function getPost(){
+   setTimeout(()=>{
+        let output='';
+        posts.forEach((post,index)=>{
+            output += `<li> ${post.title} - last updated ${(new Date().getTime() - post.createdAt)/1000}  </li>`
+        });
+        // console.log('timer running Id = ', intervalId);
+        document.body.innerHTML=output;
+        console.log(output); 
+    },2000)
+}
+
+function createPost(post){
+    setTimeout(()=>{
+        posts.push({...post,createdAt: new Date().getTime()});
+        // callback();
+    },3000)
+}
+// Deletr a post
+function deletePost(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            if(posts.length>0){
+                const lastPost=posts.pop()
+                resolve(lastPost);
+            }
+            else{
+                console.log('Array is an empty');
+            }
+        },1000)
+    })
+}
+// Promices
+function create4thPost(post){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+        posts.push({...post, createdAt: new Date().getTime()});
+        
+        const error=false;
+        if(!error){
+            console.log('Resolve');
+        }else{
+            console.log("Error : Something went wrong");
+        }
+    },4000);
+
+    })
+
+}
+getPost();
+createPost({title:'Third Post', body:'Third Body'})
+.then(()=>{
+    getPost()
+    deletePost().then((deletElement)=>{
+        console.log(deletElement);
+        getPost();
+        deletePost().then(()=>{
+            getPost();
+            deletePost(()=>{
+                getPost();
+                deletePost().then(()=>{})
+                .catch((error)=>{
+                    console.log('Inside catch block', error)
+                })
+            })
+        })
+    })
+})
+.catch(err => console.log(err));
+// create4thPost({title:'Fourth Post', body:'Fourth Body'}).then(getPost).catch((err)=>console.log('error'));
+
+
+//Promise all
+const promise1 = Promise.resolve('Hello world');
+const promise2 = 10;
+const promise3 = new Promise((resolve,reject)=>{
+    setTimeout(resolve,2000,'Goodbye');
+})
+const promise4 = fetch('https://jsonplaceholder.typicode.com/users').then(res=>res.json());
+Promise.all([promise1,promise2,promise3,promise4]).then((value)=>console.log(value));
+
+
+        </script>
+    </body>
+</html>
+
