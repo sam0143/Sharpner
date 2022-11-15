@@ -143,6 +143,7 @@ axios.interceptors.request.use(config=>{
 
 // AXIOS INSTANCES
 
+
 // Show output in browser
 function showOutput(res) {
   document.getElementById('res').innerHTML = `
