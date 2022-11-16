@@ -15,32 +15,56 @@
     <ul id="user"> </ul>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js" ></script>
     <script>
+        
+        // After refreshing the page in DOM data remain the same data won't be removed 
+
+        // if(document.readyState !== "loading"){
+        //     console.log("Loading");
+        //     var keys = Object.keys(localStorage)
+        //     var i = keys.length
+        //     console.log("keys",keys);
+        //     var stringifiedDetailsOfPeople, detailsOfPeople;
+        //     Object.keys(localStorage).forEach(function (key){
+        //         if (key.match()){
+        //             stringifiedDetailsOfPeople=localStorage.getItem(key);
+        //             console.log("stringifiedDetailsOfPeople",stringifiedDetailsOfPeople);
+        //             detailsOfPeople=JSON.parse(stringifiedDetailsOfPeople);
+        //             console.log("detailsOfPeople" , detailsOfPeople);
+        //             addNewLineElement(detailsOfPeople);
+        //         }
+        //     })
+        // }
+
         function saveLocalStorage(event) {
             event.preventDefault();
             var name = document.getElementById('username').value
             var email = document.getElementById('emailId').value
             var phone = document.getElementById('number').value
-            // localStorage.setItem('name',name);
-            // localStorage.setItem('email',email);
             if (name.length > 0 && email.length > 0) {
                 var Obj = {
                     name,
                     email,
-                    phone
+                    phone   
                 }
-                axios.post('https://crudcrud.com/api/a0891fe8511540e0a242a706c060ee0f/bookAppoinmnet',Obj)
+                    axios.post('https://crudcrud.com/api/21ff150622f444838f45eb027113fb82/bookAppoinmnet',Obj)
                 .then((response)=>{
-                    usersReadData(response.data);
-                    console.log(response);
+                    // console.log(response);
+                    for(var i=0 ; i<response.data.length ; i++){
+                        usersReadData(response.data[i]);
+                    }
                 })
                 .catch((err)=>{
                     console.log(err);
                 })
+            
+                // storing data into local storage
 
                 // localStorage.setItem("userDetail" + email, JSON.stringify(Obj));
-                // usersReadData(Obj)
+                usersReadData(Obj);
+                
             }
         }
+      
         function usersReadData(Obj) {
             var ul = document.getElementById('user');
             //creat li elment
@@ -61,8 +85,8 @@
                 document.getElementById('emailId').value=Obj.email;
                 li.remove();
             });
-            console.log(edit.className='delete');
-            console.log(edit);
+            // console.log(edit.className='delete');
+            // console.log(edit);
             li.appendChild(edit);
 
 
@@ -76,12 +100,11 @@
                 localStorage.removeItem("userDetails" + Obj.email);
                 li.remove();
             });
-            console.log(d.className="delete");
-            console.log(d);
+            // console.log(d.className="delete");
+            // console.log(d);
             li.appendChild(d);
-            console.log(li);
-
-            console.log(ul.appendChild(li));
+            // console.log(li);
+            // console.log(ul.appendChild(li));
         }
 
     </script>
