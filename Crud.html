@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<body>
+   <form onsubmit="onClickButton(event)">
+    <label >Name :</label>
+    <input type="text" name="username" id="username" required>
+    <label >Email :</label>
+    <input type="email" name="emailId" id="'email" required>
+    <label >Phone :</label>
+    <input type="tel" name="phonenumber" id="phonenumber" >
+    <button>Submit</button>
+</form> 
+<ul id="listOfUsers"></ul>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js" ></script>
+<script>
+    function onClickButton(event){
+        preventDefault();
+        const name = event.target.username.value;
+        const email = event.target.emailId.value;
+        const phonenumber = event.target.phonenumber.value;
+        const obj={
+            name,
+            email,
+            phonenumber
+        }
+        axios.post('https://crudcrud.com/api/21ff150622f444838f45eb027113fb82/bookAppoinmnet',obj)
+        .then((response)=>{
+            showNewUserOnScreen(response.data);
+            // console.log(response);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        // localStorage.setItem(obj.email , JSON.stringify(obj));
+        // showNewUserOnScreen(obj);
+    }
+
+    window.addEventListener('DOMContentLoaded',()=>{
+    axios.get('https://crudcrud.com/api/21ff150622f444838f45eb027113fb82/bookAppoinmnet')
+       .then((response)=>{
+        console.log(response);
+
+        for(var i=0 ; i<response.data.length;i++){
+            showNewUserOnScreen(response.data[i]);
+        }
+       })
+       .catch((error)=>{
+        console.log(error);
+       })
+
+       // Store the data into the local storage 
+
+        // const localStorageObj = localStorage;
+        // const localStorageKeys = Object.keys(localStorageObj);
+        // for(var i=0; i<localStorageKeys.length ; i++){
+        //     const key = localStorageKeys[i];
+        //     const userDetailsString = localStorageObj[key];
+        //     const userDetailObj = JSON.parse(userDetailsString);
+        //     showNewUserOnScreen(userDetailObj);
+        // }
+
+    })
+    function showNewUserOnScreen(user){
+            user = {
+                _id:'',
+                name:'',
+                email:'',
+            }
+        document.getElementById('email').value=" ";  
+        document.getElementById('username').value= " ";
+        document.getElementById('phonenumber').value=" ";
+
+        if(localStorage.getItem(user.email) !== null){
+            remoeUserFromScreeen(user.email)
+        }
+        const parentNode=document.getElementById('listOfUsers');
+        const childHTML=`<li id=${user._id}>${user.name}-${user.email}
+                            <button onClick=deleteUser('${user._id}}')>Delete User </button>
+                            <button onClick=editUserDetails('${user._id}}','${user.email}','${user.name}', '${user.phonenumber}')>Edit User </button>
+                        </li>`
+          parentNode.innerHTML = parentNode.innerHTML + childHTML;
+    }
+
+    //Edit user
+    function editUserDetails(emailId,name,phonenumber){
+        document.getElementById('email').value=emailId;
+        document.getElementById('username').value=name;
+        document.getElementById('phonenumber').value=phonenumber;
+
+        deleteUser(emailId);
+    }
+
+    //Delete User
+    function deleteUser(userId){
+        axios.delete(`https://crudcrud.com/api/21ff150622f444838f45eb027113fb82/bookAppoinmnet/${userId}`)
+        .then((response)=>{
+            remoeUserFromScreeen(userId);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
+
+        // console.log(emailId);
+        // localStorage.removeItem(emailId);
+        // remoeUserFromScreeen(emailId);
+    }
+
+    function remoeUserFromScreeen(userId){
+        const parentNode=document.getElementById('listOfUsers');
+        const childNodeToBeDeleted = document.getElementById(userId);
+        if(childNodeToBeDeleted){
+            parentNode.removeChild(childNodeToBeDeleted);
+        }
+    }
+</script>
+</body>

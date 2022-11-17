@@ -48,7 +48,7 @@
                 }
                     axios.post('https://crudcrud.com/api/21ff150622f444838f45eb027113fb82/bookAppoinmnet',Obj)
                 .then((response)=>{
-                    // console.log(response);
+                    console.log(response);
                     for(var i=0 ; i<response.data.length ; i++){
                         usersReadData(response.data[i]);
                     }
@@ -75,19 +75,21 @@
 
 
             // Edit button
-            var edit = document.createElement('input');
-            edit.id = 'ei'
-            edit.type = 'button';
-            edit.value = 'Edit';
-            edit.addEventListener('click', ()=>{
-                console.log(Obj)
-                document.getElementById('username').value=Obj.name;
-                document.getElementById('emailId').value=Obj.email;
-                li.remove();
-            });
-            // console.log(edit.className='delete');
-            // console.log(edit);
-            li.appendChild(edit);
+
+            
+            // var edit = document.createElement('input');
+            // edit.id = 'ei'
+            // edit.type = 'button';
+            // edit.value = 'Edit';
+            // edit.addEventListener('click', ()=>{
+            //     console.log(Obj)
+            //     document.getElementById('username').value=Obj.name;
+            //     document.getElementById('emailId').value=Obj.email;
+            //     li.remove();
+            // });
+            // // console.log(edit.className='delete');
+            // // console.log(edit);
+            // li.appendChild(edit);
 
 
             // Delete button
