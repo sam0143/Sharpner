@@ -65,9 +65,9 @@
                 name:'',
                 email:'',
             }
-        document.getElementById('email').value=" ";  
-        document.getElementById('username').value= " ";
-        document.getElementById('phonenumber').value=" ";
+       var email=document.getElementById('email').value;  
+       var name=document.getElementById('username').value;
+       var phone=document.getElementById('phonenumber').value;
 
         if(localStorage.getItem(user.email) !== null){
             remoeUserFromScreeen(user.email)
@@ -75,13 +75,13 @@
         const parentNode=document.getElementById('listOfUsers');
         const childHTML=`<li id=${user._id}>${user.name}-${user.email}
                             <button onClick=deleteUser('${user._id}}')>Delete User </button>
-                            <button onClick=editUserDetails('${user._id}}','${user.email}','${user.name}', '${user.phonenumber}')>Edit User </button>
+                            <button onClick=editUserDetails('${user.email}','${user.name}','${user.phonenumber}','${user._id}')>Edit User </button>
                         </li>`
           parentNode.innerHTML = parentNode.innerHTML + childHTML;
     }
 
     //Edit user
-    function editUserDetails(emailId,name,phonenumber){
+    function editUserDetails(email,name,phonenumber,userId){
         document.getElementById('email').value=emailId;
         document.getElementById('username').value=name;
         document.getElementById('phonenumber').value=phonenumber;
