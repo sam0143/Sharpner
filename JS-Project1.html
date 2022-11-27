@@ -1,27 +1,116 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 
 <head>
     <title>Js Project</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
 </head>
 
 <body>
     <form onsubmit="formSubmit(event)">
-        <div>
-            <label for="first">Choose-Expance-Amount :</label><br>
-            <input type="text" id="first"><br>
-        </div>
-        <div>
-            <label for="second">Choose-Discription :</label><br>
-            <input type="text" id="second"><br>
-        </div>
-        <div>
-            <label for="third">Choose a catagory :</label><br>
-            <input type="text" id="third"><br>
-        </div><br>
+        <label for="first">Choose-Expance-Amount :</label>
+        <input type="number" id="first" name="first">
+        <label for="second">Choose-Description :</label>
+        <input type="text" id="second" name="second">
+        <!-- <label for="third">Choose a catagory :</label>
+            <input type="text" id="third" name="third"> -->
+        <label for="third" id="third" name="third">Choose a catagory:</label>
+        <select name="third">
+            <option value="fuel">fuel</option>
+            <option value="food">food</option>
+            <option value="eletricity">eletricity</option>
+            <option value="movie  ">movie</option>
+        </select>
         <input type="submit" value="submit" class="btn">
     </form>
-    <ul id="users">
-
-    </ul>
+    <ul id="users"></ul>
     <script src="JS-Project1.js"></script>
+    <script>
+        function formSubmit(event) {
+            event.preventDefault();
+            var ChooseExpanceAmount = event.target.first.value;
+            var ChooseDescription = event.target.second.value;
+            var ChooseCatagory = event.target.third.value;
+            const obj = {
+                ChooseExpanceAmount,
+                ChooseDescription,
+                ChooseCatagory,
+            }
+            axios.post('https://crudcrud.com/api/5434350876d940fba0e537b2c4689cc3/chooseExpance/', obj)
+                .then((response) => {
+                    console.log(response)
+                    console.log(showNewUserOnScreen(response.data))
+                    document.getElementById('first').value = '';
+                    document.getElementById('second').value = '';
+                    document.getElementById('third').value = '';
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            axios.get('https://crudcrud.com/api/5434350876d940fba0e537b2c4689cc3/chooseExpance/')
+                .then((response) => {
+                    console.log(response);
+                    //    for(var i=0; i<response.data.length; i++){
+                    //    console.log(showNewUserOnScreen(response.data[i]));
+                    //    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        })
+        function showNewUserOnScreen(user) {
+            console.log(user);
+            console.log(document.getElementById('first').value = '');
+            console.log(document.getElementById('second').value = '');
+            console.log (document.getElementById('third').value = '');
+
+            const parentNode = document.getElementById('users');
+            const childHTML = `<li id=${user.id}> ${user.first} - ${user.second} - ${user.third}
+                              <button onClick=deleteUser('${user.id}')>Delete Expense </button>
+                              <button onClick=editUser('${user.first}','${user.second}','${user.third}','${user.id}')>Edit User </button>
+                        
+                            </li>`
+            parentNode.innerHTML = parentNode.innerHTML + childHTML;
+
+        }
+
+        function editUserDetails(userId) {
+            axios.put(`https://crudcrud.com/api/5434350876d940fba0e537b2c4689cc3/chooseExpance/ ${userId}`)
+                .then((response) => {
+                    console.log(response)
+                    editUser(userId);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+
+        function editUser(first, second, third, userId) {
+            document.getElementsByName('first')[0].value = first;
+            document.getElementsByName('second')[0].value = second;
+            document.getElementsByName('third')[0].value = third;
+
+            deleteUser(userId);
+        }
+
+        function deleteUser(userId) {
+            axios.delete(`https://crudcrud.com/api/5434350876d940fba0e537b2c4689cc3/chooseExpance/ ${userId}`)
+                .then((res) => {
+                    removeUserFromScreeen(userId);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+
+        function removeUserFromScreeen(userId) {
+            const parentNode = document.getElementById('users');
+            const childNodeToBeDeleted = document.getElementById(userId);
+            if (childNodeToBeDeleted) {
+                parentNode.removeChild(childNodeToBeDeleted);
+            }
+        }
+    </script>
 </body>

@@ -1,3 +1,19 @@
+if(document.readyState !== "loading"){
+        console.log("Loading");
+        var keys = Object.keys(localStorage)
+        var i = keys.length
+        console.log("keys",keys);
+        var stringifiedDetailsOfPeople, detailsOfPeople;
+        Object.keys(localStorage).forEach(function (key){
+            if (key.match()){
+                stringifiedDetailsOfPeople=localStorage.getItem(key);
+                console.log("stringifiedDetailsOfPeople",stringifiedDetailsOfPeople);
+                detailsOfPeople=JSON.parse(stringifiedDetailsOfPeople);
+                console.log("detailsOfPeople" , detailsOfPeople);
+                addNewLineElement(detailsOfPeople);
+            }
+        })
+    }
 function formSubmit(event){
     event.preventDefault();
     var First = document.getElementById('first').value;

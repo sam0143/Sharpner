@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <body>
    <form onsubmit="onClickButton(event)">
-    <label >Name :</label>
-    <input type="text" name="username" required>
-    <label >Email :</label>
-    <input type="email" name="emailId"  required>
-    <label >Phone :</label>
-    <input type="tel" name="phonenumber"  >
+    <label >Choose-Expance-Amount :</label>
+    <input type="number" name="first" required>
+    <label>Choose-Description :</label>
+    <input type="text" name="second"  required>
+    <!-- <label >Phone :</label>
+    <input type="tel" name="phonenumber"  > -->
+    <select name="third">
+        <option value="fuel">Fuel</option>
+        <option value="eletricity">Eletricity</option>
+        <option value="movie">movie</option>
+    </select>
     <button>Submit</button>
 </form> 
 <ul id="listOfUsers"></ul>
@@ -14,20 +19,20 @@
 <script>
     function onClickButton(event){
         event.preventDefault();
-        const name = event.target.username.value;
-        const email = event.target.emailId.value;
-        const phonenumber = event.target.phonenumber.value;
+        const ChooseExpanceAmount = event.target.first.value;
+        const ChooseDescription = event.target.second.value;
+        const ChooseCatagory = event.target.third.value;
         const obj={
-            name,
-            email,
-            phonenumber
+            ChooseExpanceAmount,
+            ChooseDescription,
+            ChooseCatagory
         }
         axios.post('https://crudcrud.com/api/14c8171a7eb242a4a52df3b02f33d247/bookAppoinmnet/',obj)
         .then((response)=>{
             showNewUserOnScreen(response.data);
-            document.getElementsByName('emailId')[0].value='';
-            document.getElementsByName('username')[0].value='';
-            document.getElementsByName('phonenumber')[0].value=''
+            document.getElementsByName('first')[0].value='';
+            document.getElementsByName('second')[0].value='';
+            document.getElementsByName('third')[0].value='';
         })
         .catch((err)=>{
             console.log(err);
@@ -64,18 +69,18 @@
     })
     function showNewUserOnScreen(user){
         console.log(user);
-    document.getElementsByName('emailId').value='';    
-    document.getElementsByName('username').value='';
-    document.getElementsByName('phonenumber').value='';
+    document.getElementsByName('first').value='';    
+    document.getElementsByName('second').value='';
+    document.getElementsByName('third').value='';
 
         // if(localStorage.getItem(user.email) !== null){
         //     remoeUserFromScreeen(user.email)
         // }
   
         const parentNode=document.getElementById('listOfUsers');
-        const childHTML=`<li id=${user._id}>${user.name}-${user.email}
+        const childHTML=`<li id=${user._id}>${user.ChooseExpanceAmount}-${user.ChooseDescription}-${user.ChooseCatagory}
                             <button onClick=deleteUser('${user._id}')>Delete User </button>
-                            <button onClick=editUserDetails('${user.email}','${user.name}','${user.phonenumber}','${user._id}')>Edit User </button>
+                            <button onClick=editUserDetails('${user.ChooseExpanceAmount}','${user.ChooseDescription}','${user.ChooseCatagory}','${user._id}')>Edit User </button>
                         </li>`
           parentNode.innerHTML = parentNode.innerHTML + childHTML;
     }
@@ -83,26 +88,26 @@
     function editUser(userId){
         axios.put(`https://crudcrud.com/api/14c8171a7eb242a4a52df3b02f33d247/bookAppoinmnet/${userId}`)
         .then((response)=>{
-            editUserDetails(userId);
+            console.log(editUserDetails(userId));
         })
         .catch((err)=>{
             console.log(err);
         })
     }
     //Edit user
-    function editUserDetails(email,name,phonenumber,userId){
-        document.getElementsByName('emailId')[0].value=email;
-        document.getElementsByName('username')[0].value=name;
-        document.getElementsByName('phonenumber')[0].value=phonenumber;
+    function editUserDetails(first,second,third,userId){
+        document.getElementsByName('first')[0].value=first;
+        document.getElementsByName('second')[0].value=second;
+        document.getElementsByName('third')[0].value=third;
 
-        remoeUserFromScreeen(userId);
+        removeUserFromScreeen(userId);
     }
 
     //Delete User
     function deleteUser(userId){
         axios.delete(`https://crudcrud.com/api/14c8171a7eb242a4a52df3b02f33d247/bookAppoinmnet/${userId}`)
         .then((response)=>{
-            remoeUserFromScreeen(userId);
+            removeUserFromScreeen(userId);
         })
         .catch((err)=>{
             console.log(err);
@@ -114,7 +119,7 @@
         // remoeUserFromScreeen(emailId);
     }
 
-    function remoeUserFromScreeen(userId){
+    function removeUserFromScreeen(userId){
         const parentNode=document.getElementById('listOfUsers');
         const childNodeToBeDeleted = document.getElementById(userId);
         if(childNodeToBeDeleted){

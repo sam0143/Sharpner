@@ -13,27 +13,30 @@
         <button>Submit</button>
     </form>
     <ul id="user"> </ul>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js" ></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js" ></script> -->
     <script>
         
         // After refreshing the page in DOM data remain the same data won't be removed 
-
-        // if(document.readyState !== "loading"){
-        //     console.log("Loading");
-        //     var keys = Object.keys(localStorage)
-        //     var i = keys.length
-        //     console.log("keys",keys);
-        //     var stringifiedDetailsOfPeople, detailsOfPeople;
-        //     Object.keys(localStorage).forEach(function (key){
-        //         if (key.match()){
-        //             stringifiedDetailsOfPeople=localStorage.getItem(key);
-        //             console.log("stringifiedDetailsOfPeople",stringifiedDetailsOfPeople);
-        //             detailsOfPeople=JSON.parse(stringifiedDetailsOfPeople);
-        //             console.log("detailsOfPeople" , detailsOfPeople);
-        //             addNewLineElement(detailsOfPeople);
-        //         }
-        //     })
-        // }
+ document.addEventListener("DOMContentLoaded", () => {
+  console.log("vscode");
+  localStorage.getItem();
+});
+        if(document.readyState !== "loading"){
+            console.log("Loading");
+            var keys = Object.keys(localStorage)
+            var i = keys.length
+            console.log("keys",keys);
+            var stringifiedDetailsOfPeople, detailsOfPeople;
+            Object.keys(localStorage).forEach(function (key){
+                if (key.match()){
+                    stringifiedDetailsOfPeople=localStorage.getItem(key);
+                    console.log("stringifiedDetailsOfPeople",stringifiedDetailsOfPeople);
+                    detailsOfPeople=JSON.parse(stringifiedDetailsOfPeople);
+                    console.log("detailsOfPeople" , detailsOfPeople);
+                    addNewLineElement(detailsOfPeople);
+                }
+            })
+        }
 
         function saveLocalStorage(event) {
             event.preventDefault();
@@ -46,20 +49,20 @@
                     email,
                     phone   
                 }
-                    axios.post('https://crudcrud.com/api/21ff150622f444838f45eb027113fb82/bookAppoinmnet',Obj)
-                .then((response)=>{
-                    console.log(response);
-                    for(var i=0 ; i<response.data.length ; i++){
-                        usersReadData(response.data[i]);
-                    }
-                })
-                .catch((err)=>{
-                    console.log(err);
-                })
+                //     axios.post('https://crudcrud.com/api/21ff150622f444838f45eb027113fb82/bookAppoinmnet',Obj)
+                // .then((response)=>{
+                //     console.log(response);
+                //     for(var i=0 ; i<response.data.length ; i++){
+                //         usersReadData(response.data[i]);
+                //     }
+                // })
+                // .catch((err)=>{
+                //     console.log(err);
+                // })
             
                 // storing data into local storage
 
-                // localStorage.setItem("userDetail" + email, JSON.stringify(Obj));
+                localStorage.setItem("userDetail" + email, JSON.stringify(Obj));
                 usersReadData(Obj);
                 
             }
@@ -77,19 +80,19 @@
             // Edit button
 
             
-            // var edit = document.createElement('input');
-            // edit.id = 'ei'
-            // edit.type = 'button';
-            // edit.value = 'Edit';
-            // edit.addEventListener('click', ()=>{
-            //     console.log(Obj)
-            //     document.getElementById('username').value=Obj.name;
-            //     document.getElementById('emailId').value=Obj.email;
-            //     li.remove();
-            // });
-            // // console.log(edit.className='delete');
-            // // console.log(edit);
-            // li.appendChild(edit);
+            var edit = document.createElement('input');
+            edit.id = 'ei'
+            edit.type = 'button';
+            edit.value = 'Edit';
+            edit.addEventListener('click', ()=>{
+                console.log(Obj)
+                document.getElementById('username').value=Obj.name;
+                document.getElementById('emailId').value=Obj.email;
+                li.remove();
+            });
+            // console.log(edit.className='delete');
+            // console.log(edit);
+            li.appendChild(edit);
 
 
             // Delete button
