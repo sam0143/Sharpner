@@ -1,0 +1,37 @@
+<nav class="navbar navbar-dark bg-dark">
+    <img src="./assets/logo.png" class="image">
+    <!-- <button  class="btn btn-dark" routerLink="/Login">Login</button> -->
+    <button class="btn btn-dark" routerLink="/Login">Logout</button>
+</nav>
+<div class="filter-wrap">
+    <input [(ngModel)]="searchText" placeholder="Filter " class="filter-input">
+  </div>
+<div class="container">
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Fullname</th>
+                    <th>Phone no.</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Nationality</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of employeedata | paginate: { itemsPerPage: 10, currentPage: p } | filter : searchText">
+                    <td>{{e.id}}</td>
+                    <td>{{e.name}}</td>
+                    <td>{{e.phoneno}}</td>
+                    <td>{{e.email}}</td>
+                    <td>{{e.gender}}</td>
+                    <td>{{e.nationality}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-right">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>

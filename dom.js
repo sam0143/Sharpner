@@ -3,8 +3,10 @@
 // console.log(items);
 // console.log(items[1]);
 // items[2].style.backgroundColor='green';
+
 // // Gets an error 
 // // items.style.fontWeight='bold';
+
 // for(var i=0;i<items.length;i++){
 //     items[i].style.fontWeight = 'bold'
 // }
@@ -138,12 +140,16 @@ function addItem(e){
     li.appendChild(document.createTextNode(inputVal));
     li.appendChild(document.createTextNode(disVal));
     itemList.appendChild(li);
+
     //delete Button
     var deleteBtn = document.createElement('button');
+
     //Adding class to Delete button
     deleteBtn.className= 'btn btn-danger btn-sm float-right delete';
+
     //Append text to node
     deleteBtn.appendChild(document.createTextNode('Delete'));
+    
     //Append button to li
      li.appendChild(deleteBtn);
      var editBtn=document.createElement('button');

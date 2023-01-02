@@ -1,0 +1,14 @@
+.logo{
+    color: white;
+    height: 10px;;
+    width: 10px;
+}
+.image{
+    height: 50px; 
+    width: 50px;
+    cursor: pointer;
+}
+.filter-wrap{
+    margin: 20px;
+    float: right;
+}

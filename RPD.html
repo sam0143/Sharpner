@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
     <head></head>
     <body>
@@ -86,44 +86,45 @@
 
 
 
-// // callback 
-// var  posts=[
-//     {title:'First Post' , body:'First body',createdAt: new Date().getTime()},
-//     {title:'Second Post', body:'Second Body', createdAt : new Date().getTime()}
-// ]
+// callback 
+var  posts=[
+    {title:'First Post' , body:'First body',createdAt: new Date().getTime()},
+    {title:'Second Post', body:'Second Body', createdAt : new Date().getTime()}
+]
 
-// function getPost(){
-//    setTimeout(()=>{
-//         let output='';
-//         posts.forEach((post,index)=>{
-//             output += `<li> ${post.title} - last updated ${(new Date().getTime() - post.createdAt)/1000}  </li>`
-//         });
-//         // console.log('timer running Id = ', intervalId);
-//         document.body.innerHTML=output;
-//         console.log(output); 
-//     },2000)
-// }
+function getPost(){
+   setTimeout(()=>{
+        let output='';
+        posts.forEach((post,index)=>{
+            output += `<li> ${post.title} - last updated ${(new Date().getTime() - post.createdAt)/1000}  </li>`
+        });
+        // console.log('timer running Id = ', intervalId);
+        document.body.innerHTML=output;
+        console.log(output); 
+    },2000)
+}
 
-// function createPost(post){
-//     setTimeout(()=>{
-//         posts.push({...post,createdAt: new Date().getTime()});
-//         // callback();
-//     },3000)
-// }
-// // Deletr a post
-// function deletePost(){
-//     return new Promise((resolve,reject)=>{
-//         setTimeout(()=>{
-//             if(posts.length>0){
-//                 const lastPost=posts.pop()
-//                 resolve(lastPost);
-//             }
-//             else{
-//                 console.log('Array is an empty');
-//             }
-//         },1000)
-//     })
-// }
+function createPost(post){
+    setTimeout(()=>{
+        posts.push({...post,createdAt: new Date().getTime()});
+        // callback();
+    },3000)
+}
+// Deletr a post
+function deletePost(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            if(posts.length>0){
+                const lastPost=posts.pop()
+                resolve(lastPost);
+            }
+            else{
+                console.log('Array is an empty');
+            }
+        },1000)
+    })
+}
+
 // // Promices
 // function create4thPost(post){
 //     return new Promise((resolve,reject)=>{

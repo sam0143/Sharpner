@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Expance Tracker</title>
+</head>
+
+<body>
+    <form>
+        <label for="expaceAmount">Expance Amount</label>
+        <input type="text" name="expanceAmount" id="expanceAmount">
+        <label for="discription">Discription</label>
+        <input type="text" name="discription" id="discription">
+        <label for="catagory">Catagory</label>
+        <select name="catagory" id="catagory">
+            <option value="fuel">Fuel</option>
+            <option value="food">Food</option>
+            <option value="electricity">Eletricity</option>
+            <option value="movie">Movie</option>
+        </select>
+        <button id="button">Add Expance</button>
+        <ul id="itemList"></ul>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+    <script src="ExpanceTracker.js"></script>
+
+</body>
