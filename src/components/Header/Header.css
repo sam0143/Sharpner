@@ -1,0 +1,12 @@
+    .text-center{
+        text-align: center!important;
+        color: white;
+        background: gray;
+        padding: 2rem;
+    }
+    .mt-4{
+        margin-top: -1rem!important;
+    }
+    .pb-2{
+        padding-bottom: 3.5rem!important;
+    }
