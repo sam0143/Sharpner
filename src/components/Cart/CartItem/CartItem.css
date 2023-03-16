@@ -1,0 +1,22 @@
+.cart{
+    border: 1px solid gray;
+    margin-left: 52rem;
+    margin-top:6rem;
+    /* margin-right:5rem; */
+    position: fixed;
+    background-color: white;
+    z-index: 30;
+}
+.cart h1 {
+    text-align: center;
+}
+.cart img{
+    height:5rem;
+    width:5rem;
+    border-radius: 5px;
+    transition: ease-in 0.5s;
+    filter: brightness(100%);
+}
+ .cart btn{
+    text-align: right;
+}

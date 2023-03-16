@@ -1,4 +1,7 @@
-import { Card } from "react-bootstrap";
+// import { Button, Card } from "react-bootstrap";
+import { Button, Card, CardImg, Row, Col } from 'react-bootstrap';
+import '../Body/Body.css';
+
 
 const productsArr = [
 
@@ -28,24 +31,59 @@ const productsArr = [
 ]
 
 const Body = () => {
+    // console.log(productsArr)
+
     return (
         <>
-            <section>
+            <h1 className='music'>Music</h1>
+            <div class="container">
+                <Row>
+                    {productsArr.map(({ title, price, imageUrl }, index) => (
+                        <Col>
+                            <Card.Title>{title}</Card.Title>
+                            <Card className='flex-fill' key={index}>
+                                <CardImg src={imageUrl} />
+                                <Card.Body>
+                                    <Card.Text>{price}</Card.Text>
+                                    <Button variant='primary'>ADD TO CART</Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+                {/* <div class="row">
+                    <div class="col-sm-4">
+                        { productsArr.map(({title,price,imageUrl},index)=>(
+                             <div class="card">
+                            <div class="card-body" key={index}>
+                                <h5 class="card-title">{title}</h5>
+                                <img src={imageUrl}/>
+                                <p class="card-text">{price}</p>
+                                <a href="#" class="btn btn-primary">ADD TO CART</a>
+                            </div>
+                        </div>
+                       )) 
+                       }
+                    </div>
+                </div> */}
+                {/* 
+
                 {productsArr.map(({ title, price, imageUrl }, index) => (
-                    <div key={index}    >
+                    <div key={index} className='card'>
                         <Card style={{ width: '18rem' }}>
                             <Card.Title>{title}</Card.Title>
                             <Card.Img variant="top" src={imageUrl} />
                             <Card.Body>
                                 <Card.Text>{price}</Card.Text>
                             </Card.Body>
+                            <Button> ADD TO CART</Button>
                         </Card>
                     </div>
 
                 ))
 
-                }
-            </section>
+                } */}
+            </div>
         </>
     )
 }
